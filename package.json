@@ -1,0 +1,94 @@
+{
+  "name": "trns",
+  "description": "Translate text in your terminal.",
+  "version": "0.0.0",
+  "license": "AGPL-3.0",
+  "author": "make-github-pseudonymous-again",
+  "homepage": "https://make-github-pseudonymous-again.github.io/trns",
+  "repository": {
+    "url": "https://github.com/make-github-pseudonymous-again/trns",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/make-github-pseudonymous-again/trns/issues"
+  },
+  "keywords": [
+    "cli",
+    "console",
+    "deepl",
+    "google",
+    "terminal",
+    "translate"
+  ],
+  "type": "module",
+  "source": "src/main.tsx",
+  "main": "dist/main.cjs",
+  "exports": {
+    "default": "./dist/main.mjs"
+  },
+  "bin": {
+    "trns": "dist/main.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rm -rf dist && microbundle --jsx React.createElement --jsxFragment React.Fragment --target node --format modern",
+    "commit-msg": "commitlint --edit",
+    "install-hooks": "husky install",
+    "lint": "xo",
+    "lint-and-fix": "xo --fix",
+    "lint-config": "fixpack --dryRun",
+    "lint-config-and-fix": "fixpack || fixpack",
+    "postinstall": "yarn install-hooks",
+    "postpack": "pinst --enable",
+    "precommit": "lint-staged",
+    "prepack": "pinst --disable",
+    "prepare": "yarn build",
+    "release": "np --message ':hatching_chick: release: Bumping to v%s.'",
+    "tc": "tsc --noEmit",
+    "tc:watch": "yarn tc --noErrorTruncation --watch"
+  },
+  "dependencies": {
+    "@iterable-iterator/filter": "^1.0.1",
+    "@iterable-iterator/map": "^1.0.1",
+    "@iterable-iterator/zip": "^1.0.1",
+    "@vitalets/google-translate-api": "^8.0.0",
+    "ink": "^3.2.0",
+    "lru-cache": "^7.10.1",
+    "react": "^18.1.0",
+    "sentence-splitter": "^3.2.2",
+    "use-debounce": "^8.0.1",
+    "yargs": "^17.5.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.0.2",
+    "@js-library/commitlint-config": "0.0.4",
+    "@types/got": "^9.6.12",
+    "@types/react": "^18.0.11",
+    "@types/yargs": "17.0.10",
+    "fixpack": "4.0.0",
+    "husky": "8.0.1",
+    "lint-staged": "13.0.0",
+    "microbundle": "0.14.2",
+    "np": "7.6.1",
+    "pinst": "3.0.0",
+    "typescript": "4.7.3",
+    "xo": "0.49.0"
+  },
+  "prettier": {
+    "trailingComma": "all"
+  },
+  "xo": {
+    "prettier": true,
+    "rules": {
+      "unicorn/filename-case": "off",
+      "@typescript-eslint/naming-convention": "off",
+      "import/extensions": "off",
+      "unicorn/prefer-node-protocol": "off"
+    }
+  }
+}

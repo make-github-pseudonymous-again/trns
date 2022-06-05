@@ -1,0 +1,14 @@
+# lock file
+!yarn.lock
+
+# build
+/dist
+
+# Dependency directory
+node_modules
+
+# Documentation
+/gh-pages
+
+# lint-staged
+.lint-staged.tsconfig.json
