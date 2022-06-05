@@ -1,4 +1,4 @@
-# :speech_balloon: `trns`
+:speech_balloon: `trns`
 [![License](https://img.shields.io/github/license/make-github-pseudonymous-again/trns.svg)](https://raw.githubusercontent.com/make-github-pseudonymous-again/trns/main/LICENSE)
 ==
 
