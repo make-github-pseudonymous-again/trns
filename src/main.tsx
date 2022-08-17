@@ -96,6 +96,7 @@ const TextNodes = ({lang, text, color}: TextNodesProps) => {
 };
 
 interface Translation {
+	loading: boolean;
 	source: string;
 	translation: Response | undefined;
 }
@@ -125,7 +126,7 @@ const Block = ({from, to, text, translation}: BlockProps) => {
 					</Text>
 				</Box>
 				<Box padding={1} flexDirection="column">
-					{translation.map(({source, translation}, index: number) => (
+					{translation.map(({loading, source, translation}, index: number) => (
 						<Box key={index} marginBottom={1}>
 							<Box marginRight={1}>
 								<Text bold dimColor>
@@ -141,7 +142,7 @@ const Block = ({from, to, text, translation}: BlockProps) => {
 								<TextNodes
 									color="magenta"
 									lang={to}
-									text={translation?.text ?? '...'}
+									text={(translation?.text ?? '') + (loading ? ' ...' : '')}
 								/>
 							</Box>
 						</Box>
@@ -204,8 +205,12 @@ const App = ({from, to, debug}: AppProps) => {
 		let cancelled = false;
 		setErrors([]);
 		const sentences = Array.from(splitSentences(debouncedText));
-		setTranslation(
-			sentences.map((source: string) => ({source, translation: undefined})),
+		setTranslation((translation) =>
+			sentences.map((source: string, i: number) => ({
+				loading: true,
+				source,
+				translation: translation[i]?.translation,
+			})),
 		);
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 		for (const sentence of enumerate(sentences)) {
@@ -217,7 +222,7 @@ const App = ({from, to, debug}: AppProps) => {
 					setTranslation((translation) =>
 						translation
 							.slice(0, i)
-							.concat([{source, translation: response}])
+							.concat([{loading: false, source, translation: response}])
 							.concat(translation.slice(i + 1)),
 					);
 				})
