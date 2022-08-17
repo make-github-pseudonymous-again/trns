@@ -187,13 +187,15 @@ const App = ({from, to, debug}: AppProps) => {
 		setDebugString({input, key});
 		if (input) {
 			if (key.ctrl && input === 's') {
-				setSavedTranslations((translations) =>
-					translations.concat([translation.slice()]),
-				);
-				setSavedTexts((texts) => texts.concat([text]));
-				setTranslation([]);
-				setText('');
-				flush();
+				if (translation.length > 0) {
+					setSavedTranslations((translations) =>
+						translations.concat([translation.slice()]),
+					);
+					setSavedTexts((texts) => texts.concat([text]));
+					setTranslation([]);
+					setText('');
+					flush();
+				}
 			} else {
 				setText((value: string) => value + input);
 			}
